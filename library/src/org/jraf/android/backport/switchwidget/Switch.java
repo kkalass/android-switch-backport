@@ -362,6 +362,11 @@ public class Switch extends CompoundButton {
         return x > thumbLeft && x < thumbRight && y > thumbTop && y < thumbBottom;
     }
 
+    @android.annotation.TargetApi(8)
+    private int getActionMasked(MotionEvent ev) {
+        return ev.getActionMasked();
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         mVelocityTracker.addMovement(ev);
@@ -370,7 +375,7 @@ public class Switch extends CompoundButton {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO)
             action = ev.getAction();
         else
-            action = ev.getActionMasked();
+            action = getActionMasked(ev);
 
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
